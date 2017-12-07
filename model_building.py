@@ -59,7 +59,7 @@ def save_submission(IDs, donate_probs):
     f = open('submission.csv', "w")
     f.write(",Made Donation in March 2007\n")
     for ID, prob in zip(IDs, donate_probs):
-        f.write("{},{}\n".format(ID,prob))
+        f.write("{},{}\n".format(ID,prob[0]))
     f.close()
 
 if __name__ == '__main__':
