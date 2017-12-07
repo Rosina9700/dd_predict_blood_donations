@@ -70,24 +70,19 @@ if __name__ == '__main__':
     # sm = SMOTE(random_state=42)
     # X_res, y_res = sm.fit_sample(X, y)
     # X_train, y_train = X_res, y_res
-    #
-    # model_list = {'rfc':[RandomForestClassifier(n_jobs=-1, oob_score=True),{'n_estimators': [50, 100, 150,300],
-    #                                                                         'max_depth': [5, 10 ,15],
-    #                                                                         'max_features': [2,4,6]}],
-    #               'gbc':[GradientBoostingClassifier(),{'learning_rate': [0.1, 0.01,0.005,0.001],
-    #                                                     'n_estimators': [50,100,200,250],
-    #                                                     'subsample': [1.0,0.8],
-    #                                                     'max_features': [2,4],
-    #                                                     'max_depth': [3,5]}],
-    #               'mlp':[MLPClassifier(early_stopping=True),{'hidden_layer_sizes': [(500,),(500,2)],
-    #                                                          'activation': ['relu','logistic'],
-    #                                                          'learning_rate_init': [0.001, 0.0005],
-    #                                                          'max_iter':[200,400]}]}
-    model_list = {'mlp':[MLPClassifier(),{'hidden_layer_sizes': [(500,),(500,2),(700,)],
-                                               'activation': ['relu','logistic'],
-                                               'learning_rate_init': [0.001, 0.0005],
-                                               'max_iter':[200,400],
-                                               'batch_size': [100,200,300]}]}
+
+    model_list = {'rfc':[RandomForestClassifier(n_jobs=-1, oob_score=True),{'n_estimators': [50, 100, 150,300],
+                                                                            'max_depth': [5, 10 ,15],
+                                                                            'max_features': [2,4,6]}],
+                  'gbc':[GradientBoostingClassifier(),{'learning_rate': [0.1, 0.01,0.005,0.001],
+                                                        'n_estimators': [50,100,200,250],
+                                                        'subsample': [1.0,0.8],
+                                                        'max_features': [2,4],
+                                                        'max_depth': [3,5]}],
+                  'mlp':[MLPClassifier(early_stopping=True),{'hidden_layer_sizes': [(500,),(500,2)],
+                                                             'activation': ['relu','logistic'],
+                                                             'learning_rate_init': [0.001, 0.0005],
+                                                             'max_iter':[200,400]}]}
 
     best_models = find_best_models(model_list, X_train, y_train)
     best_name = max(best_models.iterkeys(), key=(lambda key: best_models[key][1]))

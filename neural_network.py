@@ -6,6 +6,7 @@ import keras
 import time
 
 from model_building import get_test_data, get_training_data, save_submission
+
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
 from keras.optimizers import SGD
@@ -13,10 +14,7 @@ from keras.wrappers.scikit_learn import KerasClassifier
 
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score, GridSearchCV
-from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import StratifiedKFold
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
 
 def create_neural_network(optimizer='adam',drop_out=True, units=60):
     input_dim=8
@@ -49,18 +47,18 @@ if __name__ == '__main__':
     X_testing = np.asarray(X_testing)
 
     print 'build neural network'
-    # # model = create_neural_network()
-    # nn = KerasClassifier(build_fn=create_neural_network, verbose=2)
-    # params_grid = {'optimizer':['rmsprop','adagrad'],
-    #                 'epochs': [100,200],
-    #                 'batch_size':[5,10],
-    #                 'drop_out': [True],
-    #                 'units': [20,50]}
-    #
-    # kfold = StratifiedKFold(n_splits=20, shuffle=True)
-    # print 'grid search'
-    # grid = GridSearchCV(estimator=nn, param_grid=params_grid,cv=kfold, n_jobs=3)
-    # grid_results = grid.fit(X_train, y_train)
+    nn = KerasClassifier(build_fn=create_neural_network, verbose=2)
+    params_grid = {'optimizer':['rmsprop','adagrad'],
+                    'epochs': [100,200],
+                    'batch_size':[5,10],
+                    'drop_out': [True],
+                    'units': [20,50]}
+
+    kfold = StratifiedKFold(n_splits=20, shuffle=True)
+    print 'grid search'
+    grid = GridSearchCV(estimator=nn, param_grid=params_grid,cv=kfold, n_jobs=3)
+    grid_results = grid.fit(X_train, y_train)
+    # best parameters:
     # {'batch_size': 5,
     # 'drop_out': True,
     # 'epochs': 100,
